@@ -36,7 +36,7 @@ module Pundit
       helper_method :policy
     end
     if respond_to?(:hide_action)
-      hide_action :authorize
+      hide_action :authorize!
       hide_action :verify_authorized
     end
   end
@@ -45,7 +45,7 @@ module Pundit
     raise NotAuthorizedError unless @_policy_authorized
   end
 
-  def authorize(record, query=nil)
+  def authorize!(record, query=nil)
     query ||= params[:action].to_s + "?"
     @_policy_authorized = true
     unless policy(record).public_send(query)
